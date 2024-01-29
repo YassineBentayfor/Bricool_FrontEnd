@@ -17,6 +17,40 @@ export class MyProfileComponent implements OnInit {
   user: any;
 
   constructor(private userService: UserService,private router : Router) {}
+  copyPhoneNumber(): void {
+    // Create a temporary input element to copy the text
+    const tempInput = document.createElement('input');
+    tempInput.value = this.user.phoneNumber;
+    document.body.appendChild(tempInput);
+
+    // Select and copy the text
+    tempInput.select();
+    document.execCommand('copy');
+
+    // Remove the temporary input element
+    document.body.removeChild(tempInput);
+
+    // Optionally, provide feedback to the user (e.g., toast notification)
+    // You can implement this using a library or your own custom solution
+    alert('Phone number copied!'+this.user.phoneNumber);
+  }
+  copyMail(): void {
+    // Create a temporary input element to copy the text
+    const tempInput = document.createElement('input');
+    tempInput.value = this.user.email;
+    document.body.appendChild(tempInput);
+
+    // Select and copy the text
+    tempInput.select();
+    document.execCommand('copy');
+
+    // Remove the temporary input element
+    document.body.removeChild(tempInput);
+
+    // Optionally, provide feedback to the user (e.g., toast notification)
+    // You can implement this using a library or your own custom solution
+    alert('Mail copied!'+this.user.email);
+  }
 
   ngOnInit() {
     const isSeller = this.userService.isSeller();
@@ -39,6 +73,7 @@ export class MyProfileComponent implements OnInit {
           console.log('client:', client);
           this.user as Client;
           this.user = client;
+
         },
         (error) => {
           console.error('Error fetching client:', error);
@@ -46,6 +81,7 @@ export class MyProfileComponent implements OnInit {
         }
       );
     }
+    console.log(this.user)
   }
 
   editProfile(){
@@ -53,6 +89,14 @@ export class MyProfileComponent implements OnInit {
   }
 
   // ... existing code ...
+  m() {
+
+  }
+
+
+  onFileSelected($event: Event) {
+
+  }
 }
 
 // import { Component, OnInit } from '@angular/core';
