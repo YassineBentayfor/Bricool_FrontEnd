@@ -12,7 +12,7 @@ import {importProvidersFrom} from '@angular/core';
 
 import {environment} from './environments/environment.development';
 import {JwtInterceptor} from "./app/interceptor/Jwt.interceptor";
-import {JwtInterceptorInterceptor} from "./app/interceptors/jwt-interceptor.interceptor";
+
 
 bootstrapApplication(AppComponent, {
   providers: [
