@@ -50,19 +50,26 @@ export class SigninComponent implements OnInit {
     });
   }
 
-  signIn() {
-    this.email = this.form.value.email;
 
-    this.auth
-      .signIn(this.form.value)
-      .pipe(switchMap(() => this.userService.getUserIdByEmail(this.email)))
-      .subscribe({
-        next: (userId) => {
-          this.userService.setUserId(userId);
-          console.log('user id is ' + userId);
-          this.router.navigate(['home']);
+  signIn() {
+    if (this.form.valid) {
+
+      this.auth.signIn(this.form.value).subscribe({
+        next: (response: any) => {
+          localStorage.setItem('token', response.accessToken); // Stockez le token dans le localStorage
+          this.auth.setLoggedIn(true); // Mettez à jour le statut de connexion
+          this.router.navigate(['home']); // Naviguez vers la page d'accueil
         },
-        error: (error) => this.snackbar.open(error.message),
+        error: (error) => {
+          this.snackbar.open(error.message, 'OK', {
+            duration: 3000,
+          });
+          this.auth.setLoggedIn(false); // Réinitialisez le statut de connexion
+        }
       });
+    }
   }
+
+
+
 }

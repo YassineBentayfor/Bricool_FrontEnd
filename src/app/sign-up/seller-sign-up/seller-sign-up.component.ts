@@ -22,7 +22,7 @@ import { Seller } from 'src/app/Interfaces/seller';
 import { UserService } from 'src/app/Services/user.service';
 import { Gender } from 'src/app/Interfaces/gender';
 import { AuthService } from 'src/app/Services/auth.service';
-import { SignupCredentials } from 'src/app/Interfaces/auth.model';
+import {SellerSignup} from 'src/app/Interfaces/auth.model';
 @Component({
   selector: 'app-seller-sign-up',
   standalone: true,
@@ -48,7 +48,7 @@ export class SellerSignUpComponent {
   @ViewChild('CitiesInput') citiesInput: ElementRef<HTMLInputElement>;
   @ViewChild('OptionsInput') optionsInput: ElementRef<HTMLInputElement>;
   options: string[] = [];
-  data: SignupCredentials = { displayName: '', email: '', password: '' };
+  data: SellerSignup = {} as SellerSignup;
   personForm: FormGroup;
   count: number = 1;
   filteredOptions: string[];
@@ -96,9 +96,19 @@ export class SellerSignUpComponent {
   }
 
   onSubmit() {
-    this.data.displayName = this.personForm.value.firstName;
+    this.data.firstName = this.personForm.value.firstName;
     this.data.email = this.personForm.value.email;
     this.data.password = this.personForm.value.password;
+    this.data.lastName = this.personForm.value.lastName;
+    this.data.phoneNumber = this.personForm.value.phoneNumber;
+    this.data.city = this.personForm.value.city;
+    this.data.occupation = this.personForm.value.Occupation;
+    this.data.gender=this.personForm.value.gender;
+    this.data.yearsOfBirth=this.personForm.value.YearsOfBirth;
+
+    console.log(this.data);
+    localStorage.clear();
+
     console.log(this.personForm.value);
     if (this.personForm.valid) {
       const sellerData: Seller = {
@@ -107,14 +117,23 @@ export class SellerSignUpComponent {
         email: this.personForm.value.email,
         phoneNumber: this.personForm.value.phoneNumber,
         city: this.personForm.value.city,
-        occupations: [this.personForm.value.Occupation],
+        occupations: this.personForm.value.Occupation,
         yearsOfBirth: this.personForm.value.YearsOfBirth,
         password: this.personForm.value.password,
         gender: this.personForm.value.gender,
       };
-      console.log(sellerData);
+      console.log("seller data when signup:",sellerData);
 
-      // Call the postSeller method from the service
+      this.auth.sellerSignUp(this.data).subscribe({
+        next: () => {
+          console.log('Signed up successfully');
+          this.router.navigate(['/myProfile']);
+        },
+        error: (error) => console.log(error.message),
+      });
+
+
+    /*  // Call the postSeller method from the service
       this.userService.postSeller(sellerData).subscribe(
         (seller: Seller) => {
           console.log('Response from postSeller:', seller);
@@ -122,7 +141,7 @@ export class SellerSignUpComponent {
           this.userService.setUserId(seller.sellerId);
           this.userService.setUserType('seller');
 
-          this.auth.signUp(this.data).subscribe({
+          this.auth.sellerSignUp(this.data).subscribe({
             next: () => {
               console.log('Signed up successfully');
               this.router.navigate(['/myProfile']);
@@ -135,7 +154,7 @@ export class SellerSignUpComponent {
           console.error('Error saving seller:', error);
           // Handle error as needed
         }
-      );
+      );*/
     } else {
       console.log('Form is invalid. Please check the fields.');
     }
@@ -237,5 +256,5 @@ export class SellerSignUpComponent {
     };
   }
 
- 
+
 }

@@ -8,12 +8,13 @@ import { MyProfileComponent } from './myProfile/myProfile.component';
 import { SignUpLoginComponent } from './sign-up/signup/signuplogin.component';
 import { JoinusComponent } from './joinus/joinus.component';
 import { SigninComponent } from './signin/signin.component';
-import {
+/*import {
   canActivate,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
-} from '@angular/fire/auth-guard';
+} from '@angular/fire/auth-guard';*/
 import { EditComponent } from './myProfile/edit/edit.component';
+import {AuthGuard} from "./Services/AuthGuard";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,12 +23,12 @@ export const routes: Routes = [
   {
     path: 'myProfile',
     component: MyProfileComponent,
-    ...canActivate(() => redirectUnauthorizedTo(['login'])),
+    canActivate: [AuthGuard], // Utilisez votre AuthGuard ici
   },
   {
     path: 'editProfile',
     component: EditComponent,
-    ...canActivate(() => redirectUnauthorizedTo(['login'])),
+    canActivate: [AuthGuard], // Utilisez votre AuthGuard ici
   },
   { path: 'signUpLogin', component: SignUpLoginComponent },
   { path: 'joinUs', component: JoinusComponent },
@@ -36,12 +37,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: SigninComponent,
-    ...canActivate(() => redirectLoggedInTo(['home'])),
+    // Retirez la directive Firebase
   },
   {
     path: 'signUp',
     component: SignUpComponent,
-    ...canActivate(() => redirectLoggedInTo(['home'])),
+   // ...canActivate(() => redirectLoggedInTo(['home'])),
     children: [
       { path: '', component: SignUpLoginComponent, pathMatch: 'full' },
       { path: 'seller', component: SellerSignUpComponent },
