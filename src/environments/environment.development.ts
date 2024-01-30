@@ -10,7 +10,8 @@ export const environment = {
     measurementId: 'G-75LJXWH7CW',
   },
   production: false,
-  apiUrl: 'https://us-central1-get-stream-io-decoded.cloudfunctions.net',
+  //apiUrl: 'https://us-central1-get-stream-io-decoded.cloudfunctions.net',
+  apiUrl: 'http://localhost:8080',
   stream: {
     key: 'wxgsgqrws5v8'
   }

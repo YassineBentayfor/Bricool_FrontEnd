@@ -20,7 +20,7 @@ import { AsyncValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Client } from 'src/app/Interfaces/client';
 import { UserService } from 'src/app/Services/user.service';
-import { SignupCredentials } from 'src/app/Interfaces/auth.model';
+import {ClientSignup} from 'src/app/Interfaces/auth.model';
 import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-client-sign-up',
@@ -47,7 +47,7 @@ export class ClientSignUpComponent {
   count: number = 1;
   filteredOptions: string[];
   filteredCities: string[];
-  data: SignupCredentials = { displayName: '', email: '', password: '' };
+  data: ClientSignup = {} as ClientSignup ;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -79,9 +79,14 @@ export class ClientSignUpComponent {
   }
 
   onSubmit() {
-    this.data.displayName = this.personForm.value.firstName;
+    this.data.firstName = this.personForm.value.firstName;
     this.data.email = this.personForm.value.email;
     this.data.password = this.personForm.value.password;
+    this.data.lastName = this.personForm.value.lastName;
+    this.data.phoneNumber = this.personForm.value.phoneNumber;
+    this.data.gender=this.personForm.value.gender;
+    this.data.yearsOfBirth=this.personForm.value.YearsOfBirth;
+
     localStorage.clear();
     console.log(this.personForm.value);
     if (this.personForm.valid) {
@@ -94,15 +99,27 @@ export class ClientSignUpComponent {
         password: this.personForm.value.password,
         gender: this.personForm.value.gender,
       };
-      console.log(clientData);
+      console.log("client data when signup:",clientData);
 
-      // Call the postClient method from the service
+
+      this.auth.clientSignUp(this.data).subscribe({
+        next: () => {
+          console.log('Signed up successfully');
+          // Navigate to the myProfile page
+          this.router.navigate(['/myProfile']);
+        },
+        error: (error) => console.log('Error saving client:', error.message),
+
+      });
+
+
+     /* // Call the postClient method from the service
       this.userService.postClient(clientData).subscribe(
         (client: Client) => {
           // Store the user ID and set user type in local storage
           this.userService.setUserId(client.clientId);
           this.userService.setUserType('client');
-          this.auth.signUp(this.data).subscribe({
+          this.auth.clientSignUp(this.data).subscribe({
             next: () => console.log('Signed up successfully'),
             error: (error) => console.log(error.message),
           });
@@ -114,6 +131,8 @@ export class ClientSignUpComponent {
           // Handle error as needed
         }
       );
+      */
+
     } else {
       console.log('Form is invalid. Please check the fields.');
     }

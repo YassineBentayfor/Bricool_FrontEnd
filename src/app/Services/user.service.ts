@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, switchMap, throwError} from 'rxjs';
 import { tap } from 'rxjs';
 import { Client } from '../Interfaces/client';
 import { Seller } from '../Interfaces/seller';
 import { map } from 'rxjs/operators';
+import {UserDetails} from "../Interfaces/UserDetails";
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = 'http://localhost:8080';
 
   private userId: number;
 
@@ -35,9 +36,9 @@ export class UserService {
       );
   }
 
-  getUserType(): string {
+  getUserType(): string{
     // Retrieve user type from local storage
-    const userType = localStorage.getItem('userType');
+    const userType = localStorage.getItem('user');
     return userType || '';
   }
 
@@ -48,12 +49,14 @@ export class UserService {
 
   isSeller(): boolean {
     // Retrieve user type from local storage
-    const userType = this.getUserType();
+    const userType = localStorage.getItem('role');
+
     return userType.toLowerCase() === 'seller';
   }
 
   getClient(): Observable<Client> {
-    const clientId = this.getUserId();
+    let user = JSON.parse(localStorage.getItem('user'));
+    const clientId = user.id;
 
     return this.http
       .get<Client>(`${this.baseUrl}/clients/${clientId}`)
@@ -64,12 +67,9 @@ export class UserService {
       );
   }
 
-  postClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(`${this.baseUrl}/clients`, client);
-  }
-
   getSeller(): Observable<Seller> {
-    const sellerId = this.getUserId();
+    let user = JSON.parse(localStorage.getItem('user'));
+    const sellerId = user.id;
 
     return this.http
       .get<Seller>(`${this.baseUrl}/sellers/${sellerId}`)
@@ -78,6 +78,10 @@ export class UserService {
           console.log('Response from getSeller:', response)
         )
       );
+  }
+
+  postClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(`${this.baseUrl}/clients`, client);
   }
 
   postSeller(seller: Seller): Observable<Seller> {
@@ -89,4 +93,10 @@ export class UserService {
   }
 
   constructor(private http: HttpClient) {}
+
+
+
+
+
+
 }
