@@ -20,7 +20,7 @@ export class UserService {
   }
 
   getUserId(): number {
-    const userIdString = localStorage.getItem('userId');
+    const userIdString = Number(localStorage.getItem('userId'));
     return userIdString ? +userIdString : null;
   }
   getUserIdByEmail(email: string): Observable<number> {
@@ -29,9 +29,9 @@ export class UserService {
       .pipe(
         map((seller: Seller) => {
           // Store the user ID and set user type in local storage
-          this.setUserId(seller.sellerId);
+          this.setUserId(seller.id);
           this.setUserType('seller');
-          return seller.sellerId;
+          return seller.id;
         })
       );
   }
@@ -87,7 +87,7 @@ export class UserService {
   postSeller(seller: Seller): Observable<Seller> {
     return this.http.post<Seller>(`${this.baseUrl}/sellers`, seller);
   }
-  putSeller(sellerId: string, seller: Seller): Observable<Seller> {
+  putSeller(sellerId: number, seller: Seller): Observable<Seller> {
     const url = `${this.baseUrl}/sellers/${sellerId}`;
     return this.http.put<Seller>(url, seller);
   }
