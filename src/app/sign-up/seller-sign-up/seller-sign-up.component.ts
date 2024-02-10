@@ -1,11 +1,10 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +19,6 @@ import { AsyncValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Seller } from 'src/app/Interfaces/seller';
 import { UserService } from 'src/app/Services/user.service';
-import { Gender } from 'src/app/Interfaces/gender';
 import { AuthService } from 'src/app/Services/auth.service';
 import {SellerSignup} from 'src/app/Interfaces/auth.model';
 @Component({

@@ -6,7 +6,7 @@ import { Ville } from './Ville';
 import { Project } from './Project';
 
 export interface Seller {
-  sellerId?: number;
+  id?: number;
   firstName: string;
   lastName: string;
   email: string;

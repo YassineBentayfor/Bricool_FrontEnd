@@ -312,21 +312,24 @@ export class EditComponent {
         gender: this.personForm.value.gender,
       };
 
-      console.log('this is the seller data before the put request', sellerData);
 
       // Assuming you have the seller's ID available in userData
-      const sellerId = this.userService.getUserId().toString();
-
+      let user = JSON.parse(localStorage.getItem('user'));
+      const sellerId = user.id;
+      sellerData.id = sellerId;
+      console.log("debuging",sellerId)
       console.log('this is the seller data before the put request', sellerData);
 
-      // Update the putSeller call to handle uniqueOccupations
       this.userService.putSeller(sellerId, sellerData).subscribe(
-        (seller: Seller) => {
+        (seller: any) => {
+
           console.log('Response from putSeller:', seller);
           // No need to set user ID and type again, assuming it's already set during login
           this.router.navigate(['/myProfile']);
         },
         (error) => {
+          console.log("rror !!!")
+          console.log("rror !!!")
           console.error('Error updating seller profile:', error);
           // Handle error as needed
         }
