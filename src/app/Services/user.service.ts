@@ -92,6 +92,19 @@ export class UserService {
     return this.http.put<Seller>(url, seller);
   }
 
+  // Pour obtenir l'image/ seller
+  getSynthImage(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/sellers/${id}/image`, { responseType: 'blob' });
+  }
+
+  // Pour poster l'image/ seller
+  createSynthImage(id: number, imageFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', imageFile, imageFile.name);
+
+    return this.http.post(`${this.baseUrl}/sellers/${id}/image`, formData);
+  }
+
   constructor(private http: HttpClient) {}
 
 

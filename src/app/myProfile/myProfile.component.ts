@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { UserService } from '../Services/user.service';
 import { Seller } from '../Interfaces/seller';
 import { Client } from '../Interfaces/client';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import {DomSanitizer} from "@angular/platform-browser";
 @Component({
   selector: 'app-myProfile',
   standalone: true,
@@ -15,8 +16,12 @@ export class MyProfileComponent implements OnInit {
   seller: Seller;
   client: Client;
   user: any;
+  profileImageUrl: any;
 
-  constructor(private userService: UserService,private router : Router) {}
+  constructor(private userService: UserService,
+              private router : Router,
+              private sanitizer: DomSanitizer,
+              private changeDetectorRef: ChangeDetectorRef) {}
   copyPhoneNumber(): void {
     // Create a temporary input element to copy the text
     const tempInput = document.createElement('input');
@@ -53,6 +58,8 @@ export class MyProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
     const isSeller = this.userService.isSeller();
     console.log('isSeller:', isSeller);
 
@@ -82,6 +89,8 @@ export class MyProfileComponent implements OnInit {
       );
     }
     console.log(this.user)
+
+    this.refreshImage();
   }
 
   editProfile(){
@@ -94,9 +103,51 @@ export class MyProfileComponent implements OnInit {
   }
 
 
-  onFileSelected($event: Event) {
+ // onFileSelected($event: Event) {
 
+ // }
+
+
+  onFileSelected(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      console.log("FileUpload -> files", fileList);
+      this.uploadFile(fileList[0]);
+    }
   }
+
+  uploadFile(file: File) {
+    let user = JSON.parse(localStorage.getItem('user') || '{}'); // Ajouté || '{}' pour éviter les erreurs si 'user' est null
+    const sellerId = user.id;
+    this.userService.createSynthImage(sellerId, file).subscribe(
+      (response) => {
+        console.log("Image uploaded successfully");
+        // Rafraîchir l'image affichée après le téléchargement réussi
+        this.refreshImage();
+      },
+      (error) => {
+        console.error("Error uploading image", error);
+        // Gérer l'erreur ici
+      }
+    );
+  }
+
+  refreshImage() {
+    let user = JSON.parse(localStorage.getItem('user') || '{}'); // Ajouté || '{}' pour éviter les erreurs si 'user' est null
+    const id = user.id;
+    // Appelez cette méthode après le téléchargement réussi pour rafraîchir l'image affichée
+    this.userService.getSynthImage(id).subscribe(imageData => {
+      let objectURL = URL.createObjectURL(imageData);
+      this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      // Forcer la mise à jour de la vue si nécessaire
+      this.changeDetectorRef.detectChanges(); // Ajoutez cette ligne si la mise à jour ne se fait pas automatiquement
+    });
+  }
+
+
+
+
 }
 
 // import { Component, OnInit } from '@angular/core';
