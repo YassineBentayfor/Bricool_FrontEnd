@@ -155,10 +155,11 @@
 <div class="container " *ngIf="user">
   <p>{{user.name}}</p>
   <div class="row">
-    <div  class="position-relative mt-5  col-4 ">
-<!--      <input type="file" (change)="onFileSelected($event)" accept="image/*" in the edit/>-->
-      <img  style="margin-left: 50px   ; height: 250px" class="rounded-3  profile-image" src="../../assets/images/pngwing.com.png">
-
+    <div  class="position-relative mt-5  col-4  ">
+      <!-- Image de profil qui affiche l'image actuelle -->
+      <img class="profile-image" style="cursor: pointer;border-radius: 5px;" [src]="profileImageUrl" (click)="fileInput.click()">
+      <!-- Input de type file caché qui est déclenché lorsque l'utilisateur clique sur l'image -->
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
     </div>
     <div class="container-names mt-5 col-5 ">
       <p class="text-black fs-1 fw-semibold font-family-Poppins">{{user.lastName}} {{user.firstName}}</p>
