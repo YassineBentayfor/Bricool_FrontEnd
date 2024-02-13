@@ -17,6 +17,7 @@ export class MyProfileComponent implements OnInit {
   client: Client;
   user: any;
   profileImageUrl: any;
+  projectlist:any[];
 
   profileproject:any[];
 
@@ -60,6 +61,16 @@ export class MyProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getprojectbysellerid().subscribe(
+      (project:any) =>{
+        this.projectlist=project
+
+      },
+    (error) => {
+      console.error('Error fetching project:', error);
+      // Handle error as needed
+    }
+    )
 
 
     const isSeller = this.userService.isSeller();

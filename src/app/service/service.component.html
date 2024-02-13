@@ -7,14 +7,15 @@
 <!--        <img [src]="project.photos[0]" alt="Project Photo" class="card-img-top">-->
         <img src="assets/images/arttisanalwalpaper.jpg" alt="Project Photo" class="card-img-top">
         <div class="card-body">
-          <h5 class="card-title">{{ project.projectName }}</h5>
-          <p class="card-text">{{ project.description }}</p>
+          <div>
+            <h2 class="card-title">{{ project.projectName }}</h2>
+<!--            <h2 class="card-title">{{ project.seller.id }}</h2>-->
+          </div>
+
+          <p class="card-text"><strong>Descption:</strong>{{ project.description }}</p>
           <p class="card-text"><strong>Service Type:</strong> {{ project.serviceType }}</p>
           <p class="card-text"><strong>Location:</strong> {{ project.location }}</p>
           <p class="card-text"><strong>Booking Availability:</strong> {{ project.bookingAvailability }}</p>
-          <p class="card-text"><strong>Budget:</strong> ${{ project.budget }}</p>
-          <p class="card-text"><strong>Status:</strong> {{ project.status }}</p>
-          <p class="card-text"><strong>Dates:</strong> {{ project.startDate | date:'medium' }} - {{ project.endDate | date:'medium' }}</p>
         </div>
       </div>
     </div>

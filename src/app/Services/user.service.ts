@@ -6,6 +6,7 @@ import { Client } from '../Interfaces/client';
 import { Seller } from '../Interfaces/seller';
 import { map } from 'rxjs/operators';
 import {UserDetails} from "../Interfaces/UserDetails";
+import {Project} from "../Interfaces/Project";
 @Injectable({
   providedIn: 'root',
 })
@@ -19,6 +20,18 @@ export class UserService {
     return this.http
       .get<any>(`${this.baseUrl}/projects/all`);
   }
+  getprojectbysellerid():any{
+    return this.http.get<any>(`${this.baseUrl}/projects/op/${JSON.parse(localStorage.getItem('user') || '{}').id}`);
+  }
+  deleteprojectbysellerid(projectId:any):any{
+    return this.http.delete<any>(`${this.baseUrl}/projects/delete/${JSON.parse(localStorage.getItem('user') || '{}').id}/${projectId}`);
+  }
+  postProject(project: Project): Observable<any> {
+    console.log("USER ID",this.getUserId())
+
+    return this.http.post<any>(`${this.baseUrl}/projects/${JSON.parse(localStorage.getItem('user') || '{}').id}`, project);
+  }
+
   getprojectById():any{
     return this.http
       .get<any>(`${this.baseUrl}/projects/all`);
