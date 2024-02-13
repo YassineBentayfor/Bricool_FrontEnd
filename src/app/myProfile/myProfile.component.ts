@@ -18,6 +18,8 @@ export class MyProfileComponent implements OnInit {
   user: any;
   profileImageUrl: any;
 
+  profileproject:any[];
+
   constructor(private userService: UserService,
               private router : Router,
               private sanitizer: DomSanitizer,
@@ -98,8 +100,8 @@ export class MyProfileComponent implements OnInit {
   }
 
   // ... existing code ...
-  m() {
-
+  addProject() {
+    this.router.navigate(['addProject']);
   }
 
 
