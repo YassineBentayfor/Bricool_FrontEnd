@@ -1,0 +1,43 @@
+.background-container {
+  background-image: url("../../../assets/images/arttisanalwalpaper.jpg"); /* Add the path to your background image */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+
+.Form {
+  background-color: white;
+  border-radius: 10px;
+}
+
+#Bricool::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #0652dd;
+  border-radius: 50%;
+  margin-left: 0px;
+  margin-bottom: 14px;
+  vertical-align: bottom;
+}
+.green-circle {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #4caf50; /* Green color */
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.error-message {
+  color: red;
+
+}
