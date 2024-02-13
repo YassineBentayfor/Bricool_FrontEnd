@@ -204,17 +204,31 @@
           Ajouter Project
         </button>
       </div>
-      <!-- Image Box 1 -->
-      <div class="row">
-        <div class="col-md-4 mb-4" *ngFor="let project of null">
-          <div class="card h-100 d-flex flex-column">
-            <img style="bottom: 5px;" src="{{project.src}}" class="h-100 ard-img-top flex-fill" alt="Image 1">
-            <div class="card-body d-flex flex-column" style="height: 100px;"> <!-- Adjust the height as needed -->
-              <p class="card-text flex-grow-1 fs-6 fw-medium font-family-Poppins">{{project.title}}</p>
+      <!-- project-list.component.html -->
+
+      <div class="container mt-4">
+        <div class="row">
+          <div *ngFor="let project of projectlist" class="col-md-4 mb-4">
+            <div class="card shadow">
+              <!--        <img [src]="project.photos[0]" alt="Project Photo" class="card-img-top">-->
+              <img src="assets/images/arttisanalwalpaper.jpg" alt="Project Photo" class="card-img-top">
+              <div class="card-body">
+                <div>
+                  <h2 class="card-title">{{ project.projectName }}</h2>
+                  <!--            <h2 class="card-title">{{ project.seller.id }}</h2>-->
+                </div>
+
+                <p class="card-text"><strong>Descption:</strong>{{ project.description }}</p>
+                <p class="card-text"><strong>Service Type:</strong> {{ project.serviceType }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ project.location }}</p>
+                <p class="card-text"><strong>Booking Availability:</strong> {{ project.bookingAvailability }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+
     </div>
   </div>
 </div>
