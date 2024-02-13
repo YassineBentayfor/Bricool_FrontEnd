@@ -15,9 +15,14 @@ import { SigninComponent } from './signin/signin.component';
 } from '@angular/fire/auth-guard';*/
 import { EditComponent } from './myProfile/edit/edit.component';
 import {AuthGuard} from "./Services/AuthGuard";
+import {ServiceComponent} from "./service/service.component";
+import {AboutusComponent} from "./aboutus/aboutus.component";
+import {AddProjectComponent} from "./myProfile/add-project/add-project.component";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'service', component: ServiceComponent},
+  { path: 'aboutus', component: AboutusComponent},
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '404', component: PageNotFoundComponent },
   {
@@ -28,6 +33,11 @@ export const routes: Routes = [
   {
     path: 'editProfile',
     component: EditComponent,
+    canActivate: [AuthGuard], // Utilisez votre AuthGuard ici
+  },
+  {
+    path: 'addProject',
+    component: AddProjectComponent,
     canActivate: [AuthGuard], // Utilisez votre AuthGuard ici
   },
   { path: 'signUpLogin', component: SignUpLoginComponent },

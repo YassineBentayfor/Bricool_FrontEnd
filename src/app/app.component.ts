@@ -72,4 +72,12 @@ export class AppComponent {
   goToMyProfile() {
     this.router.navigate(['/myProfile']);
   }
+
+  navigateToServicePage() {
+    this.router.navigate(['/service']);
+  }
+
+  navigateToaboutusPage() {
+    this.router.navigate(['/aboutus']);
+  }
 }

@@ -12,6 +12,18 @@ import {UserDetails} from "../Interfaces/UserDetails";
 export class UserService {
   private baseUrl = 'http://localhost:8080';
 
+
+
+  // projects
+  getproject():any{
+    return this.http
+      .get<any>(`${this.baseUrl}/projects/all`);
+  }
+  getprojectById():any{
+    return this.http
+      .get<any>(`${this.baseUrl}/projects/all`);
+  }
+
   private userId: number;
 
   setUserId(id: number): void {

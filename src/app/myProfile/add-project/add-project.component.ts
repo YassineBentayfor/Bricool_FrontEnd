@@ -26,6 +26,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Project} from "../../Interfaces/Project";
 
 @Component({
   selector: 'app-add-project',
@@ -74,29 +75,6 @@ export class AddProjectComponent {
         const yearsOfBirthDate = userData.yearsOfBirth
           ? new Date(userData.yearsOfBirth)
           : null;
-        this.personForm = this.fb.group({
-          firstName: [userData.firstName || '', Validators.required],
-          lastName: [userData.lastName || '', Validators.required],
-          email: [
-            userData.email || '',
-            [Validators.required, Validators.email],
-          ],
-          password: [userData.password || '', Validators.required],
-          phoneNumber: [
-            userData.phoneNumber || '',
-            [Validators.required, Validators.pattern(/^\d+$/)],
-          ],
-          YearsOfBirth: [yearsOfBirthDate || null, Validators.required],
-          gender: [userData.gender || null, Validators.required],
-          cin: [userData.cin || ''],
-          businessHours: [userData.businessHours || ''],
-          Operationalregion: [userData.Operationalregion || ''],
-          city: [userData.city || '', Validators.required],
-          slogan: [userData.slogan || ''],
-          description: [userData.description || ''],
-          completedTaskNumber: [userData.completedTaskNumber || null],
-
-        });
         const existingOccupations = userData.occupations || [];
         const occupationControls = existingOccupations.map((occupation) => {
           return this.fb.control(
@@ -109,6 +87,9 @@ export class AddProjectComponent {
         occupationControls.forEach((control) => occupationArray.push(control));
 
         // Assuming you want to store the occupations in the 'addedOccupations' property
+
+
+
       });
   }
 
@@ -165,6 +146,21 @@ export class AddProjectComponent {
 
 
   onSubmit() {
+    console.log('Form initialized:', this.personForm.value);
+    console.log(JSON.parse(localStorage.getItem('user') || '{}').id)
+    const newProject: Project = {
+      seller_id: JSON.parse(localStorage.getItem('user') || '{}').id,  // Replace 1 with the actual seller_id value
+      projectName: this.personForm.value.projectname,
+      description: this.personForm.value.descriptionproject,
+      startDate: '',  // Add actual values or adjust as needed
+      endDate: '',    // Add actual values or adjust as needed
+      budget: 0,      // Add actual values or adjust as needed
+      status: '',
+      serviceType: '',
+      location: '',
+      bookingAvailability: '',
+    };
+    console.log(newProject)
 
   }
 }
