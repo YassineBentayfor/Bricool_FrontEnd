@@ -58,24 +58,24 @@ export class HomeComponent {
     },
     {
       title: 'Electrical Renovation',
-      src: 'path/to/image2.jpg',
+      src: 'image2.jpeg',
       min: 150,
       max: 250,
     },
-    { title: 'Deep Cleaning', src: 'path/to/image3.jpg', min: 120, max: 180 },
+    { title: 'Deep Cleaning', src: 'image3.jpeg', min: 120, max: 180 },
     {
       title: 'New Construction',
-      src: 'path/to/image4.jpg',
+      src: 'image4.png',
       min: 200,
       max: 300,
     },
     {
       title: 'Apartment Cleaning',
-      src: 'path/to/image5.jpg',
+      src: 'image5.png',
       min: 80,
       max: 150,
     },
-    { title: 'Office Upgrade', src: 'path/to/image6.jpg', min: 170, max: 220 },
+    { title: 'Office Upgrade', src: 'image6.png', min: 170, max: 220 },
   ];
   taskers: Tasker[] = [
     {
@@ -84,7 +84,7 @@ export class HomeComponent {
       description:
         'Experienced in various home repair tasks. Customer satisfaction is my top priority!',
       rating: 95,
-      img: 'ali-mohamed.jpg', // Placeholder image filename
+      img: 'ali-mohamed.png', // Placeholder image filename
       skills: [
         { description: 'Plumbing' },
         { description: 'Electrical Repair' },
@@ -114,7 +114,7 @@ export class HomeComponent {
       description:
         'Crafting wood into beautiful creations. From furniture to intricate woodwork!',
       rating: 85,
-      img: 'ahmed-khalid.jpg', // Placeholder image filename
+      img: 'ahmed-khalid.png', // Placeholder image filename
       skills: [
         { description: 'Custom Furniture' },
         { description: 'Wood Carving' },
@@ -128,7 +128,7 @@ export class HomeComponent {
       description:
         'Ensuring your electrical systems are safe and efficient. Handling installations and repairs!',
       rating: 91,
-      img: 'sara-hassan.jpg', // Placeholder image filename
+      img: 'sara-hassan.png', // Placeholder image filename
       skills: [
         { description: 'Electrical Wiring' },
         { description: 'Lighting Installation' },
@@ -149,10 +149,10 @@ export class HomeComponent {
     'House Cleaning',
   ];
 
-  
+
     navigateToSignUp() {
   this.router.navigate(['/signUp']);
 }
     // Navigate to the sign-up page
-  
+
 }
