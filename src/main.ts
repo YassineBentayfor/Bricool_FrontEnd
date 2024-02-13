@@ -11,7 +11,7 @@ import {importProvidersFrom} from '@angular/core';
 //import {getAuth, provideAuth} from '@angular/fire/auth';
 
 import {environment} from './environments/environment.development';
-import {JwtInterceptor} from "./app/interceptor/Jwt.interceptor";
+import {JwtInterceptor} from "./app/Services/JwtInterceptor";
 
 
 bootstrapApplication(AppComponent, {
