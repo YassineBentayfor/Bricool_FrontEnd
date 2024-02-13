@@ -68,29 +68,6 @@ export class AddProjectComponent {
   }
 
   ngOnInit() {
-    const newProject: Project = {
-      seller_id: null,// Replace 1 with the actual seller_id value
-      projectName: this.personForm.value.projectname,
-      description: this.personForm.value.descriptionproject,
-      startDate: '',  // Add actual values or adjust as needed
-      endDate: '',    // Add actual values or adjust as needed
-      budget: 0,      // Add actual values or adjust as needed
-      status: '',
-      serviceType: '',
-      location: '',
-      bookingAvailability: '',
-    };
-    console.log(newProject)
-    this.userService.postProject(newProject)
-      .subscribe(
-        (response) => {
-          // Handle successful response here
-          console.log('Project created successfully:', response);
-        },
-        (error) => {
-          // Handle error here
-          console.error('Error creating project:', error);
-        })
 
 
     this.sellerSubscription = this.userService

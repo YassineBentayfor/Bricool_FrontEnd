@@ -161,22 +161,31 @@
       <!-- Input de type file caché qui est déclenché lorsque l'utilisateur clique sur l'image -->
       <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
     </div>
-    <div class="container-names mt-5 col-5 ">
-      <p class="text-black fs-1 fw-semibold font-family-Poppins">{{user.lastName}} {{user.firstName}}</p>
+
+
+
+    <div class="container-names mt-5 col-5">
+      <p class="text-black fs-1 fw-semibold font-family-Poppins">{{ user.lastName }} {{ user.firstName }}</p>
       <div>
         <p *ngFor="let occupation of user.occupations; let last = last" class="text-black fs-5 fw-medium font-family-Poppins" style="display: inline-block; margin-right: 5px;">
           {{ occupation }}
           <span *ngIf="!last"> & </span>
         </p>
         <div class="text-black fs-6 fw-medium font-family-Poppins">
-          <p>{{user.city}}</p>
-          <p> <span>{{user.yearsOfExperience}}</span> year of experience</p>
+          <p *ngIf="user.city">City: {{ user.city }}</p>
+          <p *ngIf="user.yearsOfExperience !== null"> <span>{{ user.yearsOfExperience }}</span> year of experience</p>
+          <p *ngIf="user.email">Email: {{ user.email }}</p>
+          <p *ngIf="user.phoneNumber">Phone Number: {{ user.phoneNumber }}</p>
+          <p *ngIf="user.gender">Gender: {{ user.gender }}</p>
+          <p *ngIf="user.yearsOfBirth">Date of Birth: {{ user.yearsOfBirth }}</p>
+          <!-- Add more fields as needed -->
         </div>
         <button style="width: 250px" class="btn btn-dark text-white">Share</button>
-
       </div>
-
     </div>
+
+
+
     <div style="margin-left: 95px;" class="container-names mt-5 col-2 ">
       <button (click)="editProfile()" class="btn btn-link text-success fs-5 fw-medium font-family-Poppins">
         Modifier
